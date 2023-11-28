@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+app.use(cors()); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
@@ -30,4 +32,4 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(3000);
+server.listen(3000,'0.0.0.0');
